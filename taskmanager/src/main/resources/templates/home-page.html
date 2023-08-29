@@ -15,7 +15,9 @@
 <br>
 
 <p>Don't have an account? Then create one!</p>
-<input type="submit" value="Sign up">
+<form action="/get-signup" th:action="@{/get-signup}" method="post">
+    <input type="submit" value="Sign up">
+</form>
 
 </body>
 </html>

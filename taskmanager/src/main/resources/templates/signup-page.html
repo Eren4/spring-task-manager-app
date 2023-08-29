@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Signup Page</title>
@@ -18,6 +18,8 @@
 
 <br> <br>
 
-<input type="submit" value="Back">
+<form action="/" th:action="@{/}" method="post">
+    <input type="submit" value="Back">
+</form>
 </body>
 </html>

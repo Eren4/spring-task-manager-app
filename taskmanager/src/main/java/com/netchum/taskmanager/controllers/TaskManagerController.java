@@ -17,6 +17,11 @@ public class TaskManagerController {
         return "login-page";
     }
 
+    @PostMapping("/get-signup")
+    public String getSignupScreen() {
+        return "signup-page";
+    }
+
     @PostMapping("/")
     public String getMainScreen() {
         return "home-page";
