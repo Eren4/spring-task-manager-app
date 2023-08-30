@@ -41,15 +41,22 @@ public class TaskManagerController {
         return "home-page";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginToSystem(@RequestParam String email, @RequestParam String password,
-                        Model model) {
+    @PostMapping("/task-screen-login")
+    public String loginToSystem(@RequestParam String email,
+                                @RequestParam String password,
+                                Model model) {
+
         boolean isAuthenticated = userService.authenticateUser(email, password);
 
         if(isAuthenticated) {
             String username = userService.getUserByEmail(email).getUsername();
             username = makeFirstLetterCapital(username);
+
+            int userId = userService.getUserByEmail(email).getUserId();
+            List<Task> tasks = taskService.getTasksByUserId(userId);
+
             model.addAttribute("username", username);
+            model.addAttribute("tasks", tasks);
 
             return "task-list";
         }
@@ -59,7 +66,7 @@ public class TaskManagerController {
         }
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/task-screen-signup")
     public String signupToSystem(@RequestParam String username, @RequestParam String email,
                                  @RequestParam String password, @RequestParam String passwordAgain,
                                  Model model) {
@@ -88,21 +95,6 @@ public class TaskManagerController {
 
         model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
 
-        return "task-list";
-    }
-
-    @GetMapping("/user/{userId}/task-list")
-    public String taskList(Principal principal, Model model) {
-        if(principal != null) {
-            String username = principal.getName();
-            User user = userService.getUserByUsername(username);
-
-            if(user != null) {
-                int userId = user.getUserId();
-                List<Task> tasks = taskService.getTasksByUserId(userId);
-                model.addAttribute("tasks", tasks);
-            }
-        }
         return "task-list";
     }
 
