@@ -1,0 +1,8 @@
+DELETE FROM TASKS;
+
+ALTER SEQUENCE TASKS_TASK_ID_SEQ RESTART WITH 1;
+
+INSERT INTO TASKS (TASK_DESCRIPTION, COMPLETED, USER_ID)
+VALUES ('Take out the trash', FALSE, 1),
+('Do your homework', FALSE, 2),
+('Go to the bakery shop', FALSE, 3);
