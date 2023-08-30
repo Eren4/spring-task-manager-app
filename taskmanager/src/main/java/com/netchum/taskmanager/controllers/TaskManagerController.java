@@ -52,7 +52,7 @@ public class TaskManagerController {
             String username = userService.getUserByEmail(email).getUsername();
             username = makeFirstLetterCapital(username);
 
-            int userId = userService.getUserByEmail(email).getUserId();
+            int userId = userService.getUserByEmail(email).getId();
             List<Task> tasks = taskService.getTasksByUserId(userId);
 
             model.addAttribute("username", username);
@@ -94,6 +94,28 @@ public class TaskManagerController {
         userService.createUser(user);
 
         model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
+
+        return "task-list";
+    }
+
+    @GetMapping("edit-task")
+    public String editTask(@RequestParam int taskId, Model model) {
+        Task task = taskService.getTaskById(taskId);
+
+        model.addAttribute("taskId", task.getTaskId());
+        model.addAttribute("taskDescription", task.getTaskDescription());
+        model.addAttribute("completed", task.isCompleted());
+        model.addAttribute("userId", task.getUser().getId());
+
+        return "task-editing";
+    }
+
+    @PostMapping("save-task")
+    public String saveTask(@ModelAttribute Task task, Model model) {
+        taskService.updateTask(task);
+
+        model.addAttribute("username", task.getUser().getUsername());
+        model.addAttribute("tasks", taskService.getTasksByUserId(task.getUser().getId()));
 
         return "task-list";
     }

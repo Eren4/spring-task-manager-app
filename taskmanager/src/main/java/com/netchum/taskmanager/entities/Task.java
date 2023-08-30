@@ -55,7 +55,7 @@ public class Task {
         isCompleted = completed;
     }
 
-    public User getUserId() {
+    public User getUser() {
         return user;
     }
 

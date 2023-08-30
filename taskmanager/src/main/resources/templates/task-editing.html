@@ -12,8 +12,11 @@
   <p>Task description:
     <input type="text" th:name="taskDescription" th:value="${taskDescription}" />
   </p>
-  <p>Completed
+  <p>Completed:
     <input type="checkbox" th:name="completed" th:checked="${completed}" />
+  </p>
+  <p>User ID:
+    <input type="text" th:name="userId" th:value="${userId}" readonly />
   </p>
 
   <br>
