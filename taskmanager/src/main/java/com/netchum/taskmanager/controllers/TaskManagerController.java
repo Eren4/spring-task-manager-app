@@ -143,6 +143,21 @@ public class TaskManagerController {
         return "task-list";
     }
 
+    @PostMapping("/delete-task")
+    public String deleteTask(@RequestParam int taskId, Model model) {
+        Task task = taskService.getTaskById(taskId);
+
+        User user = task.getUser();
+
+        taskService.deleteTask(task);
+
+        model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
+        model.addAttribute("tasks", taskService.getTasksByUserId(user.getId()));
+        model.addAttribute("userId", user.getId());
+
+        return "task-list";
+    }
+
     private String makeFirstLetterCapital(String username) {
         return username.substring(0, 1).toUpperCase() + username.substring(1, username.length());
     }
