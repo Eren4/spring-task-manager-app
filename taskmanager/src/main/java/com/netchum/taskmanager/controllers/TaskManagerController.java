@@ -40,7 +40,7 @@ public class TaskManagerController {
 
         if(isAuthenticated) {
             String username = userService.getUserByEmail(email).getUsername();
-            username = username.substring(0, 1).toUpperCase() + username.substring(1, username.length());
+            username = makeFirstLetterCapital(username);
             model.addAttribute("username", username);
 
             return "task-list";
@@ -72,8 +72,12 @@ public class TaskManagerController {
 
         userService.createUser(user);
 
-        model.addAttribute("username", user.getUsername());
+        model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
 
         return "task-list";
+    }
+
+    private String makeFirstLetterCapital(String username) {
+        return username.substring(0, 1).toUpperCase() + username.substring(1, username.length());
     }
 }
