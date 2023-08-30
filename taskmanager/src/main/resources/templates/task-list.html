@@ -7,6 +7,24 @@
 <body>
 <h1>Task list for <span th:text="${username}"></span></h1>
 
+<table>
+    <thead>
+    <tr>
+        <th>Task ID</th>
+        <th>Task Description</th>
+        <th>Completed</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the list of tasks and display them in the table -->
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.taskId}"></td>
+        <td th:text="${task.taskDescription}"></td>
+        <td th:text="${task.isCompleted}"></td>
+    </tr>
+    </tbody>
+</table>
+
 <form action="/" th:action="@{/}" method="post">
     <input type="submit" value="Back">
 </form>
