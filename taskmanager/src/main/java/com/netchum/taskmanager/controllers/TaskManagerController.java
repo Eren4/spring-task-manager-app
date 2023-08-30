@@ -4,6 +4,7 @@ import com.netchum.taskmanager.entities.Task;
 import com.netchum.taskmanager.entities.User;
 import com.netchum.taskmanager.services.TaskService;
 import com.netchum.taskmanager.services.UserService;
+import jakarta.persistence.PreUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +57,7 @@ public class TaskManagerController {
 
             model.addAttribute("username", username);
             model.addAttribute("tasks", tasks);
+            model.addAttribute("userId", userId);
 
             return "task-list";
         }
@@ -120,8 +122,25 @@ public class TaskManagerController {
     }
 
     @GetMapping("/create-task")
-    public String createTask() {
+    public String createTask(@RequestParam int userId, Model model) {
+        model.addAttribute("userId", userId);
+
         return "task-creation";
+    }
+
+    @PostMapping("/add-task")
+    public String addTask(@RequestParam String taskDescription,
+                          @RequestParam(defaultValue = "false") Boolean isCompleted,
+                          @RequestParam int userId,
+                          Model model) {
+        Task task = new Task(taskDescription, isCompleted, userService.getUserById(userId));
+
+        taskService.addTask(task);
+
+        model.addAttribute("username", makeFirstLetterCapital(task.getUser().getUsername()));
+        model.addAttribute("tasks", taskService.getTasksByUserId(task.getUser().getId()));
+
+        return "task-list";
     }
 
     private String makeFirstLetterCapital(String username) {

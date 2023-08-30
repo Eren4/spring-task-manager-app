@@ -24,13 +24,17 @@
         <td>
             <a th:href="@{/edit-task(taskId=${task.taskId})}">Edit</a>
         </td>
+        <td>
+            <button onclick="deleteTask(${task.taskId})">Delete</button>
+        </td>
     </tr>
     </tbody>
 </table>
 
 <br>
 
-<form action="create-task" th:action="@{/create-task}" method="get">
+<form action="/create-task" th:action="@{/create-task}" method="get">
+    <input type="hidden" name="userId" th:value="${userId}" />
     <input type="submit" value="Add Task">
 </form>
 
@@ -39,5 +43,13 @@
 <form action="/" th:action="@{/}" method="post">
     <input type="submit" value="Back">
 </form>
+
+<script>
+    function deleteTask(taskId) {
+        if (confirm("Are you sure you want to delete this task?")) {
+            alert("Task with ID " + taskId + " deleted!");
+        }
+    }
+</script>
 </body>
 </html>

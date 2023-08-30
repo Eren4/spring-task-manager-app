@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Task Creation</title>
-    <script>
-    function goBack() {
-        window.history.back();
-    }
-    </script>
 </head>
 <body>
   <h1>Task creation</h1>
 
   <form th:action="@{/add-task}" method="post">
 
-    <p>Task description: <input type="text"></p>
-    <p>Completed: <input type="checkbox"></p>
+      <p>Task description: <input type="text" name="taskDescription"></p>
+
+      <p>Completed: <input type="checkbox" name="isCompleted"></p>
+
+
+      <p>User ID:<input type="text" name="userId" th:value="${userId}" readonly /></p>
 
     <input type="submit" value="Add Task">
 
@@ -25,5 +24,10 @@
 
   <button onclick="goBack()">Cancel</button>
 
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

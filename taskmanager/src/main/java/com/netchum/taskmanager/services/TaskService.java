@@ -32,4 +32,12 @@ public class TaskService {
     public void updateTask(Task task) {
         taskRepository.save(task);
     }
+
+    public void addTask(Task task) {
+        taskRepository.save(task);
+    }
+
+    public void deleteTask(Task task) {
+        taskRepository.delete(task);
+    }
 }
