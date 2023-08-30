@@ -8,16 +8,13 @@
   <h1>Task Creation</h1>
 
   <form th:action="@{/add-task}" method="post">
-
       <p>Task description: <input type="text" name="taskDescription"></p>
 
       <p>Completed: <input type="checkbox" name="isCompleted"></p>
 
+      <p>User ID: <input type="text" name="userId" th:value="${userId}" readonly /></p>
 
-      <p>User ID:<input type="text" name="userId" th:value="${userId}" readonly /></p>
-
-    <input type="submit" value="Add Task">
-
+      <input type="submit" value="Add Task">
   </form>
 
   <br>
