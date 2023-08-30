@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Signup Page</title>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Signup page</h1>
+
+<div th:if="${emailError}" class="error-message">
+    <p th:text="${emailError}"></p>
+</div>
+
+<div th:if="${emailRegexError}" class="error-message">
+    <p th:text="${emailRegexError}"></p>
+</div>
+
+<div th:if="${usernameError}" class="error-message">
+    <p th:text="${usernameError}"></p>
+</div>
+
+<div th:if="${passwordError}" class="error-message">
+    <p th:text="${passwordError}"></p>
+</div>
 
 <form action="/signup" th:action="@{signup}" method="post">
     <p>Username: </p> <input type="text" name="username">

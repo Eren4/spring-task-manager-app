@@ -55,16 +55,22 @@ public class TaskManagerController {
     public String signupToSystem(@RequestParam String username, @RequestParam String email,
                                  @RequestParam String password, @RequestParam String passwordAgain,
                                  Model model) {
+        String emailRegex = "^[^@]+@[^@]+\\.[a-zA-Z]{3}$";
+
         if(userService.isEmailRegistered(email)) {
-            model.addAttribute("email-error", "Email already used by another user");
+            model.addAttribute("emailError", "Email already used by another user");
+            return "signup-page";
+        }
+        else if(!email.matches(emailRegex)) {
+            model.addAttribute("emailRegexError", "Incorrect email type. Correct example: asd@mail.com");
             return "signup-page";
         }
         else if(userService.isUsernameRegistered(username)) {
-            model.addAttribute("username-error", "Username not available");
+            model.addAttribute("usernameError", "Username not available");
             return "signup-page";
         }
         else if(!password.equals(passwordAgain)) {
-            model.addAttribute("password-error", "Passwords don't match");
+            model.addAttribute("passwordError", "Passwords don't match");
             return "signup-page";
         }
 
