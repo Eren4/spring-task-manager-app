@@ -7,14 +7,16 @@
 <body>
 <h1>Signup page</h1>
 
-<p>Username: </p> <input type="text">
-<p>Email: </p> <input type="text">
-<p>Password: </p> <input type="password">
-<p>Password again: </p> <input type="password">
+<form action="/signup" th:action="@{signup}" method="post">
+    <p>Username: </p> <input type="text" name="username">
+    <p>Email: </p> <input type="text" name="email">
+    <p>Password: </p> <input type="password" name="password">
+    <p>Password again: </p> <input type="password" name="passwordAgain">
 
-<br> <br>
+    <br> <br>
 
-<input type="submit" value="Sign up">
+    <input type="submit" value="Sign up">
+</form>
 
 <br> <br>
 

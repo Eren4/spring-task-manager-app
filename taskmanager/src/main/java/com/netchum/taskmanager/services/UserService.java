@@ -28,4 +28,28 @@ public class UserService {
             return false;
         }
     }
+
+    public boolean isEmailRegistered(String email) {
+        User user = userRepository.findByEmail(email);
+        if(user != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean isUsernameRegistered(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void createUser(User user) {
+        userRepository.createUser(user);
+    }
 }
