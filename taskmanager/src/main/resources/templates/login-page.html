@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Login page</h1>
 
-<p>Email: </p> <input type="text">
-<p>Password: </p> <input type="password">
+<div th:if="${error}" class="error-message">
+    <p th:text="${error}"></p>
+</div>
 
-<br> <br>
+<form action="/login" th:action="@{/login}" method="post">
+    <p>Email: </p> <input type="text" name="email">
+    <p>Password: </p> <input type="password" name="password">
 
-<input type="submit" value="Login">
+    <br> <br>
+    <input type="submit" value="Login">
+</form>
 
 <br> <br>
 

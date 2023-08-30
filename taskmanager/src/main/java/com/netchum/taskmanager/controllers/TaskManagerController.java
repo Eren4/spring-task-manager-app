@@ -1,5 +1,6 @@
 package com.netchum.taskmanager.controllers;
 
+import com.netchum.taskmanager.entities.User;
 import com.netchum.taskmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,17 +33,21 @@ public class TaskManagerController {
         return "home-page";
     }
 
-    @RequestMapping(value = "/login-page", method = RequestMethod.POST)
-    public String login(@RequestParam String email, @RequestParam String password,
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginToSystem(@RequestParam String email, @RequestParam String password,
                         Model model) {
         boolean isAuthenticated = userService.authenticateUser(email, password);
 
         if(isAuthenticated) {
+            String username = userService.getUserByEmail(email).getUsername();
+            username = username.substring(0, 1).toUpperCase() + username.substring(1, username.length());
+            model.addAttribute("username", username);
+
             return "task-list";
         }
         else {
             model.addAttribute("error", "Invalid email or password");
-            return "login";
+            return "login-page";
         }
     }
 }
