@@ -9,7 +9,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TASK_ID")
-    private int taskId;
+    private int id;
 
     @Column(name = "TASK_DESCRIPTION")
     private String taskDescription;
@@ -32,11 +32,11 @@ public class Task {
     }
 
     public int getTaskId() {
-        return taskId;
+        return id;
     }
 
     public void setTaskId(int taskId) {
-        this.taskId = taskId;
+        this.id = taskId;
     }
 
     public String getTaskDescription() {
@@ -66,7 +66,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "taskId=" + taskId +
+                "taskId=" + id +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", isCompleted=" + isCompleted +
                 ", user=" + user +

@@ -1,17 +1,25 @@
 package com.netchum.taskmanager.controllers;
 
+import com.netchum.taskmanager.entities.Task;
 import com.netchum.taskmanager.entities.User;
+import com.netchum.taskmanager.services.TaskService;
 import com.netchum.taskmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
+
 @Controller
 public class TaskManagerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TaskService taskService;
 
     @GetMapping("/")
     public String getHomePage() {
@@ -80,6 +88,21 @@ public class TaskManagerController {
 
         model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
 
+        return "task-list";
+    }
+
+    @GetMapping("/user/{userId}/task-list")
+    public String taskList(Principal principal, Model model) {
+        if(principal != null) {
+            String username = principal.getName();
+            User user = userService.getUserByUsername(username);
+
+            if(user != null) {
+                int userId = user.getUserId();
+                List<Task> tasks = taskService.getTasksByUserId(userId);
+                model.addAttribute("tasks", tasks);
+            }
+        }
         return "task-list";
     }
 

@@ -17,7 +17,11 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    List<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return taskRepository.findAll();
+    }
+
+    public List<Task> getTasksByUserId(int userId) {
+        return taskRepository.findByUser_Id(userId);
     }
 }
