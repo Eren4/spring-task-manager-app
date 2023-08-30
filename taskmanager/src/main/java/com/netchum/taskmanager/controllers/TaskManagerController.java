@@ -95,6 +95,7 @@ public class TaskManagerController {
         userService.createUser(user);
 
         model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
+        model.addAttribute("userId", user.getId());
 
         return "task-list";
     }
@@ -115,8 +116,11 @@ public class TaskManagerController {
     public String saveTask(@ModelAttribute Task task, Model model) {
         taskService.updateTask(task);
 
-        model.addAttribute("username", task.getUser().getUsername());
-        model.addAttribute("tasks", taskService.getTasksByUserId(task.getUser().getId()));
+        User user = task.getUser();
+
+        model.addAttribute("username", makeFirstLetterCapital(user.getUsername()));
+        model.addAttribute("tasks", taskService.getTasksByUserId(user.getId()));
+        model.addAttribute("userId",user.getId());
 
         return "task-list";
     }
@@ -139,6 +143,7 @@ public class TaskManagerController {
 
         model.addAttribute("username", makeFirstLetterCapital(task.getUser().getUsername()));
         model.addAttribute("tasks", taskService.getTasksByUserId(task.getUser().getId()));
+        model.addAttribute("userId", task.getUser().getId());
 
         return "task-list";
     }
