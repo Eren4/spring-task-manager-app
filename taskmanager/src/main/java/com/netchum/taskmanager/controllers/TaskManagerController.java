@@ -45,7 +45,6 @@ public class TaskManagerController {
     public String loginToSystem(@RequestParam String email,
                                 @RequestParam String password,
                                 Model model) {
-
         boolean isAuthenticated = userService.authenticateUser(email, password);
 
         if(isAuthenticated) {
@@ -118,6 +117,11 @@ public class TaskManagerController {
         model.addAttribute("tasks", taskService.getTasksByUserId(task.getUser().getId()));
 
         return "task-list";
+    }
+
+    @GetMapping("/create-task")
+    public String createTask() {
+        return "task-creation";
     }
 
     private String makeFirstLetterCapital(String username) {
