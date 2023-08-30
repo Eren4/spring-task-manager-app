@@ -12,12 +12,12 @@ public class TaskManagerController {
         return "home-page";
     }
 
-    @PostMapping("/get-login")
+    @PostMapping("/login-page")
     public String getLoginScreen() {
         return "login-page";
     }
 
-    @PostMapping("/get-signup")
+    @PostMapping("/signup-page")
     public String getSignupScreen() {
         return "signup-page";
     }
