@@ -50,6 +50,6 @@ public class UserService {
     }
 
     public void createUser(User user) {
-        userRepository.createUser(user);
+        userRepository.save(user);
     }
 }
