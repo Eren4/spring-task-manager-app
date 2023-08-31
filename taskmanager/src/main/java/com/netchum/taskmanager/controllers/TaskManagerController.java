@@ -6,6 +6,7 @@ import com.netchum.taskmanager.services.TaskService;
 import com.netchum.taskmanager.services.UserService;
 import jakarta.persistence.PreUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ public class TaskManagerController {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String getHomePage() {
@@ -89,6 +93,8 @@ public class TaskManagerController {
             model.addAttribute("passwordError", "Passwords don't match");
             return "signup-page";
         }
+
+        password = passwordEncoder.encode(password);
 
         User user = new User(username, email, password);
 

@@ -3,6 +3,7 @@ package com.netchum.taskmanager.services;
 import com.netchum.taskmanager.entities.User;
 import com.netchum.taskmanager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,9 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -30,7 +34,7 @@ public class UserService {
     public boolean authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         if(user != null) {
-            return (user.getPassword().equals(password));
+            return passwordEncoder.matches(password, user.getPassword());
         }
         else {
             return false;
